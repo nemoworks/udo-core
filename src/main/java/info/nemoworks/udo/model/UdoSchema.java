@@ -1,14 +1,28 @@
 package info.nemoworks.udo.model;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 @Data
 @AllArgsConstructor
-public class UdoSchema extends DigitalObject {
+@EqualsAndHashCode(callSuper = true)
+public class UdoSchema extends Identifiable {
 
     private JsonNode schema;
 
+    @Override
+    public ObjectNode toJsonObject() {
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        ObjectNode schemaNode = mapper.createObjectNode();
+        schemaNode.put("id", this.getId());
+        schemaNode.set("data", this.getSchema());
+        return schemaNode;
+    }
 }
