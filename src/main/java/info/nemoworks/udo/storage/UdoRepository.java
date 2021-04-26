@@ -1,23 +1,30 @@
-package info.nemoworks.udo.repository;
+package info.nemoworks.udo.storage;
 
 import java.util.List;
 
-import info.nemoworks.udo.exception.UdoPersistException;
 import info.nemoworks.udo.model.Udo;
-import info.nemoworks.udo.repository.h2.exception.UDROPersistException;
+import info.nemoworks.udo.model.UdoSchema;
 
-/*
-collection : schemaId
- */
 public interface UdoRepository {
 
-    Udo saveUdo(Udo udo, String schemaId) throws UdoPersistException, UDROPersistException;
+    // for udo
+    Udo saveUdo(Udo udo) throws UdoPersistException;
 
-    Udo findUdo(String udoi, String schemaId) throws UDROPersistException, UDROPersistException;
+    Udo sync(Udo udo) throws UdoPersistException;
 
-    List<Udo> findAllUdos(String schemaId);
+    Udo findUdoById(String id);
 
-    void deleteUdo(String udoi, String schemaId) throws UDROPersistException;
+    List<Udo> findUdosBySchema(UdoSchema schema);
 
-    Udo updateUdo(Udo udo, String udoi, String schemaId) throws UDROPersistException;
+    void deleteUdoById(String id) throws UdoNotExistException;
+
+    // for schema
+    List<UdoSchema> findAllSchemas();
+
+    UdoSchema findSchemaById(String id);
+
+    UdoSchema saveSchema(UdoSchema udoSchema) throws UdoPersistException;
+
+    void deleteSchemaById(String id) throws UdoNotExistException;
+
 }

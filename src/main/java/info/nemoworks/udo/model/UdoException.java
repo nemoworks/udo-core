@@ -1,4 +1,4 @@
-package info.nemoworks.udo.exception;
+package info.nemoworks.udo.model;
 
 public class UdoException extends Exception {
 

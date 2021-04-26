@@ -1,30 +1,14 @@
 package info.nemoworks.udo.event;
 
-import info.nemoworks.udo.model.Udo;
-import org.springframework.context.ApplicationEvent;
+import info.nemoworks.udo.model.Identifiable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-public class UdoEvent extends ApplicationEvent {
+@Data
+@AllArgsConstructor
+public class UdoEvent {
 
-    private static final long serialVersionUID = 1L;
+    private Object source;
+    private Identifiable identifiable;
 
-    private Udo udo ;
-
-    /**
-     * Create a new {@code ApplicationEvent}.
-     *
-     * @param source the object on which the event initially occurred or with
-     *               which the event is associated (never {@code null})
-     */
-    public UdoEvent(Object source,Udo udo) {
-        super(source);
-        this.udo = udo;
-    }
-
-    public Udo getUdo() {
-        return udo;
-    }
-
-    public void setUdo(Udo udo) {
-        this.udo = udo;
-    }
 }

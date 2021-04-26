@@ -1,4 +1,6 @@
-package info.nemoworks.udo.exception;
+package info.nemoworks.udo.storage;
+
+import info.nemoworks.udo.model.UdoException;
 
 public class UdoPersistException extends UdoException {
 
