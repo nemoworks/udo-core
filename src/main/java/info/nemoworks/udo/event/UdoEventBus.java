@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 @AllArgsConstructor
 public class UdoEventBus {
+
     private EventBus bus;
 
     public void publish(UdoEvent event) {
