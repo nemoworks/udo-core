@@ -73,7 +73,7 @@ public class UdoService {
     }
 
     public UdoSchema getSchemaForUdo(Udo udo) {
-        return udoRepository.findSchemaById(udo.getSchema().getId());
+        return udoRepository.findSchemaById(udo.getSchemaId());
     }
 
     public void deleteSchemaById(String id) throws UdoServiceException {
