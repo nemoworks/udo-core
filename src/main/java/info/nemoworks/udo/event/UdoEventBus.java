@@ -4,12 +4,12 @@ import com.google.common.eventbus.EventBus;
 
 import org.springframework.stereotype.Component;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+//import lombok.AllArgsConstructor;
+//import lombok.Data;
 
 @Component
-@Data
-@AllArgsConstructor
+//@Data
+//@AllArgsConstructor
 public class UdoEventBus {
 
     private EventBus bus;
@@ -26,4 +26,15 @@ public class UdoEventBus {
         this.bus.unregister(object);
     }
 
+    public UdoEventBus(EventBus bus) {
+        this.bus = bus;
+    }
+
+    public EventBus getBus() {
+        return bus;
+    }
+
+    public void setBus(EventBus bus) {
+        this.bus = bus;
+    }
 }
