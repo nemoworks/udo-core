@@ -14,12 +14,12 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 //@EqualsAndHashCode(callSuper = true)
 public class Udo extends Identifiable {
 
-    private UdoSchema schema;
+    private String schemaId;
 
     private JsonNode data;
 
-    public Udo(UdoSchema schema, JsonNode data) {
-        this.schema = schema;
+    public Udo(String schemaId, JsonNode data) {
+        this.schemaId = schemaId;
         this.data = data;
     }
 
@@ -30,7 +30,7 @@ public class Udo extends Identifiable {
 
         ObjectNode udoNode = mapper.createObjectNode();
         udoNode.put("id", this.getId());
-        udoNode.set("schema", this.getSchema().toJsonObject());
+        udoNode.put("schemaId", this.getSchemaId());
         udoNode.set("data", this.getData());
 
         return udoNode;
@@ -40,16 +40,16 @@ public class Udo extends Identifiable {
         return data;
     }
 
-    public UdoSchema getSchema() {
-        return schema;
+    public String getSchemaId() {
+        return schemaId;
     }
 
     public void setData(JsonNode data) {
         this.data = data;
     }
 
-    public void setSchema(UdoSchema schema) {
-        this.schema = schema;
+    public void setSchemaId(String schemaId) {
+        this.schemaId = schemaId;
     }
 
 
