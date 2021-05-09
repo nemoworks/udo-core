@@ -20,10 +20,10 @@ public class UdoTests {
         ObjectMapper mapper = new ObjectMapper();
         JsonNode actualObj = mapper.readTree(jsonString);
 
-        UdoSchema schema = new UdoSchema(actualObj);
+        UdoSchema schema = new UdoSchema("1", actualObj);
         schema.setId("schema-1");
 
-        Udo udo = new Udo(schema.getId(), actualObj);
+        Udo udo = new Udo("2", schema.getId(), actualObj);
         udo.setId("udo-1");
 
         System.out.println(schema.toJsonObject());

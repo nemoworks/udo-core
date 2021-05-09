@@ -15,7 +15,8 @@ public class UdoSchema extends Identifiable {
 
     private JsonNode schema;
 
-    public UdoSchema(JsonNode schema) {
+    public UdoSchema(String Id, JsonNode schema) {
+        this.setId(Id);
         this.schema = schema;
     }
 

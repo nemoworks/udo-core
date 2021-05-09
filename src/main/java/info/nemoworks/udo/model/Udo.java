@@ -18,9 +18,10 @@ public class Udo extends Identifiable {
 
     private JsonNode data;
 
-    public Udo(String schemaId, JsonNode data) {
+    public Udo(String Id, String schemaId, JsonNode data) {
         this.schemaId = schemaId;
         this.data = data;
+        this.setId(Id);
     }
 
     @Override

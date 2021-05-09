@@ -14,7 +14,7 @@ public interface UdoRepository {
 
     Udo findUdoById(String id);
 
-    List<Udo> findUdosBySchema(UdoSchema schema);
+    List<Udo> findUdosBySchema(String schemaId);
 
     void deleteUdoById(String id) throws UdoNotExistException;
 

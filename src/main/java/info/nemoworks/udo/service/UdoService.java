@@ -39,8 +39,8 @@ public class UdoService {
         return udoRepository.findUdoById(id);
     }
 
-    public List<Udo> getUdoBySchema(UdoSchema schema) {
-        return udoRepository.findUdosBySchema(schema);
+    public List<Udo> getUdoBySchema(String schemaId) {
+        return udoRepository.findUdosBySchema(schemaId);
     }
 
     public void deleteUdoById(String id) throws UdoServiceException {
