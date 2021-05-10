@@ -27,4 +27,6 @@ public interface UdoRepository {
 
     void deleteSchemaById(String id) throws UdoNotExistException;
 
+    List<Udo> findAllUdos();
+
 }
