@@ -5,6 +5,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import org.junit.jupiter.api.Test;
 
 public class UdoTests {
@@ -12,15 +14,20 @@ public class UdoTests {
     @Test
     public void testUdoSchema() {
 
-        String jsonString = "{\"k1\":\"v1\",\"k2\":\"v2\"}";
+        String jsonString = "{'id': 1001, "
+                + "'firstName': 'Lokesh',"
+                + "'lastName': 'Gupta',"
+                + "'email': 'howtodoinjava@gmail.com'}";
 
-        JsonObject jsonObject = JsonParser.parseString(jsonString).getAsJsonObject();
+        JsonObject data = new Gson().fromJson(jsonString,JsonObject.class);
 
-        UdoSchema schema = new UdoSchema(jsonObject);
+
+        UdoSchema schema = new UdoSchema(data);
         schema.setId("schema-1");
 
-        Udo udo = new Udo(schema, jsonObject);
-        udo.setId("udo-1");
+        JsonObject object = schema.toJsonObject();
+        System.out.println(schema.toJsonObject());
+
 
         assertNotNull(schema.toJsonObject());
 

@@ -1,7 +1,7 @@
 package info.nemoworks.udo.model;
 
-import com.google.gson.JsonObject;
 
+import com.google.gson.JsonObject;
 import lombok.Data;
 
 @Data

@@ -1,5 +1,7 @@
 package info.nemoworks.udo.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import lombok.AllArgsConstructor;
@@ -15,11 +17,9 @@ public class UdoSchema extends Identifiable {
 
     @Override
     public JsonObject toJsonObject() {
+        Gson gson = new Gson();
+        JsonElement jsonElement = gson.toJsonTree(this);
+        return (JsonObject) jsonElement;
 
-        JsonObject json = new JsonObject();
-
-        json.addProperty("id", this.getId());
-        json.add("data", this.getSchema());
-        return json;
     }
 }
