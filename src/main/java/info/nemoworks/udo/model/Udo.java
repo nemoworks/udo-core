@@ -1,8 +1,6 @@
 package info.nemoworks.udo.model;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.google.gson.JsonObject;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,19 +13,18 @@ public class Udo extends Identifiable {
 
     private UdoSchema schema;
 
-    private JsonNode data;
+    private JsonObject data;
 
     @Override
-    public ObjectNode toJsonObject() {
+    public JsonObject toJsonObject() {
 
-        ObjectMapper mapper = new ObjectMapper();
+        JsonObject json = new JsonObject();
+        json.addProperty("id", this.getId());
+        json.add("schema", this.getSchema().toJsonObject());
 
-        ObjectNode udoNode = mapper.createObjectNode();
-        udoNode.put("id", this.getId());
-        udoNode.set("schema", this.getSchema().toJsonObject());
-        udoNode.set("data", this.getData());
+        json.add("data", this.getData());
 
-        return udoNode;
+        return json;
     }
 
 }
