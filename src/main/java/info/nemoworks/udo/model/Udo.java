@@ -3,6 +3,7 @@ package info.nemoworks.udo.model;
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,6 +22,7 @@ public class Udo extends Identifiable {
         Gson gson = new Gson();
         JsonElement jsonElement = gson.toJsonTree(this);
         return (JsonObject) jsonElement;
+
     }
 
 

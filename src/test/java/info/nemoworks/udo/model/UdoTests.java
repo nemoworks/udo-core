@@ -2,6 +2,8 @@ package info.nemoworks.udo.model;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -25,6 +27,9 @@ public class UdoTests {
 
         JsonObject object = schema.toJsonObject();
         System.out.println(schema.toJsonObject());
+
+
+        assertNotNull(schema.toJsonObject());
 
     }
 
