@@ -3,7 +3,7 @@ package info.nemoworks.udo.storage;
 import java.util.List;
 
 import info.nemoworks.udo.model.Udo;
-import info.nemoworks.udo.model.UdoSchema;
+import info.nemoworks.udo.model.UdoType;
 
 public interface UdoRepository {
 
@@ -14,18 +14,18 @@ public interface UdoRepository {
 
     Udo findUdoById(String id);
 
-    List<Udo> findUdosBySchema(UdoSchema schema);
+    List<Udo> findUdosByType(UdoType udoType);
 
     void deleteUdoById(String id) throws UdoNotExistException;
 
-    // for schema
-    List<UdoSchema> findAllSchemas();
+    // for type
+    List<UdoType> findAllTypes();
 
-    UdoSchema findSchemaById(String id);
+    UdoType findTypeById(String id);
 
-    UdoSchema saveSchema(UdoSchema udoSchema) throws UdoPersistException;
+    UdoType saveType(UdoType udoType) throws UdoPersistException;
 
-    void deleteSchemaById(String id) throws UdoNotExistException;
+    void deleteTypeById(String id) throws UdoNotExistException;
 
     List<Udo> findAllUdos();
 

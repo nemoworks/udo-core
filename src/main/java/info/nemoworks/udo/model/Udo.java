@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class Udo extends Identifiable {
 
-    private UdoSchema schema;
+    private UdoType type;
 
     private JsonObject data;
 
@@ -24,6 +24,5 @@ public class Udo extends Identifiable {
         return (JsonObject) jsonElement;
 
     }
-
 
 }

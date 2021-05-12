@@ -13,7 +13,7 @@ public class Link {
 
     private String name;
     private LinkType linkType;
-    private UdoSchema from;
-    private UdoSchema to;
+    private UdoType from;
+    private UdoType to;
 
 }

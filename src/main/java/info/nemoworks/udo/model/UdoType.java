@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
 @Data
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class UdoSchema extends Identifiable {
+public class UdoType extends Identifiable {
 
     private JsonObject schema;
 

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import info.nemoworks.udo.event.UdoEvent;
 import info.nemoworks.udo.event.UdoEventBus;
 import info.nemoworks.udo.model.Udo;
-import info.nemoworks.udo.model.UdoSchema;
+import info.nemoworks.udo.model.UdoType;
 import info.nemoworks.udo.storage.UdoNotExistException;
 import info.nemoworks.udo.storage.UdoPersistException;
 import info.nemoworks.udo.storage.UdoRepository;
@@ -39,8 +39,8 @@ public class UdoService {
         return udoRepository.findUdoById(id);
     }
 
-    public List<Udo> getUdoBySchema(UdoSchema schema) {
-        return udoRepository.findUdosBySchema(schema);
+    public List<Udo> getUdoByType(UdoType udoType) {
+        return udoRepository.findUdosByType(udoType);
     }
 
     public void deleteUdoById(String id) throws UdoServiceException {
@@ -51,11 +51,11 @@ public class UdoService {
         }
     }
 
-    public UdoSchema saveOrUpdateSchema(UdoSchema schema) throws UdoServiceException {
+    public UdoType saveOrUpdateType(UdoType udoType) throws UdoServiceException {
 
-        UdoSchema saved = null;
+        UdoType saved = null;
         try {
-            saved = udoRepository.saveSchema(schema);
+            saved = udoRepository.saveType(udoType);
             udoEventBus.publish(new UdoEvent("save", saved));
         } catch (UdoPersistException e) {
             throw new UdoServiceException("canot save/update");
@@ -64,21 +64,21 @@ public class UdoService {
 
     }
 
-    public UdoSchema getSchemaById(String id) {
-        return udoRepository.findSchemaById(id);
+    public UdoType getTypeById(String id) {
+        return udoRepository.findTypeById(id);
     }
 
-    public List<UdoSchema> getAllSchemas() {
-        return udoRepository.findAllSchemas();
+    public List<UdoType> getAllTypes() {
+        return udoRepository.findAllTypes();
     }
 
-    public UdoSchema getSchemaForUdo(Udo udo) {
-        return udoRepository.findSchemaById(udo.getSchema().getId());
+    public UdoType getTypeForUdo(Udo udo) {
+        return udoRepository.findTypeById(udo.getType().getId());
     }
 
-    public void deleteSchemaById(String id) throws UdoServiceException {
+    public void deleteTypeById(String id) throws UdoServiceException {
         try {
-            udoRepository.deleteSchemaById(id);
+            udoRepository.deleteTypeById(id);
         } catch (UdoNotExistException e) {
             throw new UdoServiceException("not exist");
         }
