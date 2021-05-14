@@ -36,7 +36,12 @@ public class UdoService {
     }
 
     public Udo getUdoById(String id) {
-        return udoRepository.findUdoById(id);
+        try {
+            return udoRepository.findUdoById(id);
+        } catch (UdoNotExistException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<Udo> getUdoByType(UdoType udoType) {
@@ -65,7 +70,12 @@ public class UdoService {
     }
 
     public UdoType getTypeById(String id) {
-        return udoRepository.findTypeById(id);
+        try {
+            return udoRepository.findTypeById(id);
+        } catch (UdoNotExistException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public List<UdoType> getAllTypes() {
@@ -73,7 +83,12 @@ public class UdoService {
     }
 
     public UdoType getTypeForUdo(Udo udo) {
-        return udoRepository.findTypeById(udo.getType().getId());
+        try {
+            return udoRepository.findTypeById(udo.getType().getId());
+        } catch (UdoNotExistException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
     public void deleteTypeById(String id) throws UdoServiceException {

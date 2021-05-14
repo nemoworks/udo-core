@@ -12,16 +12,16 @@ public interface UdoRepository {
 
     Udo sync(Udo udo) throws UdoPersistException;
 
-    Udo findUdoById(String id);
+    Udo findUdoById(String id) throws UdoNotExistException;
 
-    List<Udo> findUdosByType(UdoType udoType);
+    List<Udo> findUdosByType(UdoType udoType) ;
 
     void deleteUdoById(String id) throws UdoNotExistException;
 
     // for type
     List<UdoType> findAllTypes();
 
-    UdoType findTypeById(String id);
+    UdoType findTypeById(String id) throws UdoNotExistException;
 
     UdoType saveType(UdoType udoType) throws UdoPersistException;
 
