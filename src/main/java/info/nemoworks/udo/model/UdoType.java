@@ -20,6 +20,5 @@ public class UdoType extends Identifiable {
         Gson gson = new Gson();
         JsonElement jsonElement = gson.toJsonTree(this);
         return (JsonObject) jsonElement;
-
     }
 }
