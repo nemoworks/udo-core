@@ -14,10 +14,13 @@ public interface UdoRepository {
 
     Udo findUdoById(String id) throws UdoNotExistException;
 
-    List<Udo> findUdosByType(UdoType udoType) ;
+    List<Udo> findUdosByType(UdoType udoType);
+
+    List<Udo> findUdosByTypeId(String udoTypeId);
 
     void deleteUdoById(String id) throws UdoNotExistException;
 
+    List<Udo> findAllUdos();
     // for type
     List<UdoType> findAllTypes();
 
@@ -27,6 +30,6 @@ public interface UdoRepository {
 
     void deleteTypeById(String id) throws UdoNotExistException;
 
-    List<Udo> findAllUdos();
+
 
 }
