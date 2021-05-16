@@ -6,5 +6,6 @@ public class MetaInfo {
     public String createdBy;
     public long modifiedOn;
     public String modifiedBy;
+    public String uri;
 
 }
