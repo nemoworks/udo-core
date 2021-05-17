@@ -15,13 +15,10 @@ public class Udo extends Identifiable {
 
     private JsonElement data;
 
-
-
     public Udo(UdoType type, JsonElement data) {
         super();
         this.type = type;
         this.data = data;
-        
     }
 
     @Override
