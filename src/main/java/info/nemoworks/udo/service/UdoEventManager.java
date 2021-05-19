@@ -5,7 +5,9 @@ import com.google.common.eventbus.EventBus;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import info.nemoworks.udo.model.UdoEvent;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UdoEventManager {
 
     @Autowired

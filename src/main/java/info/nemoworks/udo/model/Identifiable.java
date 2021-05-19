@@ -8,19 +8,18 @@ public abstract class Identifiable {
 
     private String id;
 
-    public abstract JsonObject toJsonObject();
+    public long createdOn;
+    public String createdBy;
+    public long modifiedOn;
+    public String modifiedBy;
+    public String uri;
 
-    private MetaInfo metaInfo;
+    public abstract JsonObject toJsonObject();
 
     private ContextInfo contextInfo;
 
     public Identifiable() {
-        this.metaInfo = new MetaInfo() {
-            {
-                this.createdBy = "nemoworks";
-            }
-        };
-
+        this.createdBy = "nemoworks";
         this.contextInfo = new ContextInfo();
     }
 
