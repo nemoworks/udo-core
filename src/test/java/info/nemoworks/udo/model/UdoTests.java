@@ -1,11 +1,14 @@
 package info.nemoworks.udo.model;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-
 import org.junit.jupiter.api.Test;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 public class UdoTests {
 
@@ -25,6 +28,17 @@ public class UdoTests {
 
         assertNotNull(type.toJsonObject());
 
+    }
+
+    @Test
+    public void testInfer() throws IOException {
+        JsonObject obj = new Gson().fromJson(this.loadFromFile("src/test/resources/test0.json"), JsonObject.class);
+        Udo udo = new Udo(obj);
+        System.out.println(udo.getType().getSchema().toString());
+    }
+
+    public String loadFromFile(String path) throws IOException {
+        return new String(Files.readAllBytes(Paths.get(path)));
     }
 
 }
