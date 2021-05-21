@@ -1,15 +1,15 @@
 package info.nemoworks.udo.service;
 
-import java.util.List;
-
-import org.springframework.stereotype.Service;
-
+import info.nemoworks.udo.model.EventType;
 import info.nemoworks.udo.model.Udo;
 import info.nemoworks.udo.model.UdoEvent;
 import info.nemoworks.udo.model.UdoType;
 import info.nemoworks.udo.storage.UdoNotExistException;
 import info.nemoworks.udo.storage.UdoPersistException;
 import info.nemoworks.udo.storage.UdoRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class UdoService {
@@ -26,7 +26,7 @@ public class UdoService {
     public Udo saveOrUpdateUdo(Udo udo) throws UdoServiceException {
         Udo saved = null;
         boolean created = false;
-        if(udo.getId() == null){
+        if (udo.getId() == null) {
             created = true;
         }
         try {
@@ -34,8 +34,11 @@ public class UdoService {
         } catch (UdoPersistException e) {
             throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be saved");
         }
-        if(created){
-            udoEventManager.post(new UdoEvent("save", saved, null));
+        if (created) {
+            udoEventManager.post(new UdoEvent(EventType.SAVE, saved, null));
+//            udoEventManager.register(saved);
+        } else {
+            udoEventManager.post(new UdoEvent(EventType.UPDATE, saved, null));
         }
         return saved;
     }
@@ -55,8 +58,9 @@ public class UdoService {
 
     public void deleteUdoById(String id) throws UdoServiceException {
         try {
+//            udoEventManager.unregister(udoRepository.findUdoById(id));
             udoRepository.deleteUdoById(id);
-            udoEventManager.post(new UdoEvent("delete", null, id.getBytes()));
+            udoEventManager.post(new UdoEvent(EventType.DELETE, null, id.getBytes()));
         } catch (UdoNotExistException e) {
             throw new UdoServiceException("not exist");
         }
@@ -67,7 +71,7 @@ public class UdoService {
         UdoType saved = null;
         try {
             saved = udoRepository.saveType(udoType);
-         //   udoEventManager.post(new UdoEvent("save", saved, null));
+            //   udoEventManager.post(new UdoEvent("save", saved, null));
         } catch (UdoPersistException e) {
             throw new UdoServiceException("canot save/update");
         }
@@ -100,7 +104,7 @@ public class UdoService {
     public void deleteTypeById(String id) throws UdoServiceException {
         try {
             udoRepository.deleteTypeById(id);
-            udoEventManager.post(new UdoEvent("delete", null, id.getBytes()));
+            udoEventManager.post(new UdoEvent(EventType.DELETE, null, id.getBytes()));
 
         } catch (UdoNotExistException e) {
             throw new UdoServiceException("not exist");
@@ -111,7 +115,7 @@ public class UdoService {
         Udo saved = null;
         try {
             saved = udoRepository.sync(udo);
-            udoEventManager.post(new UdoEvent("sync", udo, null));
+            udoEventManager.post(new UdoEvent(EventType.SYNC, udo, null));
         } catch (UdoPersistException e) {
             throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be sync");
         }
