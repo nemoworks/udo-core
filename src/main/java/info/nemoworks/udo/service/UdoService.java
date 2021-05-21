@@ -25,11 +25,17 @@ public class UdoService {
 
     public Udo saveOrUpdateUdo(Udo udo) throws UdoServiceException {
         Udo saved = null;
+        boolean created = false;
+        if(udo.getId() == null){
+            created = true;
+        }
         try {
             saved = udoRepository.saveUdo(udo);
-            udoEventManager.post(new UdoEvent("save", saved, null));
         } catch (UdoPersistException e) {
             throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be saved");
+        }
+        if(created){
+            udoEventManager.post(new UdoEvent("save", saved, null));
         }
         return saved;
     }
@@ -61,7 +67,7 @@ public class UdoService {
         UdoType saved = null;
         try {
             saved = udoRepository.saveType(udoType);
-            udoEventManager.post(new UdoEvent("save", saved, null));
+         //   udoEventManager.post(new UdoEvent("save", saved, null));
         } catch (UdoPersistException e) {
             throw new UdoServiceException("canot save/update");
         }
