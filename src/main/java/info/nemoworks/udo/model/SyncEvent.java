@@ -1,9 +1,13 @@
 package info.nemoworks.udo.model;
 
-//@Data
-//@AllArgsConstructor
-//public class SyncEvent extends UdoEvent{
+import lombok.AllArgsConstructor;
+import lombok.Data;
 
-//    private EventType contextId;
-//    private Identifiable source;
-//}
+
+@Data
+@AllArgsConstructor
+public class SyncEvent extends UdoEvent{
+
+    private EventType contextId;
+    private Identifiable source;
+}
