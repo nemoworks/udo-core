@@ -7,6 +7,7 @@ import info.nemoworks.udo.model.UdoType;
 import info.nemoworks.udo.storage.UdoNotExistException;
 import info.nemoworks.udo.storage.UdoPersistException;
 import info.nemoworks.udo.storage.UdoRepository;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -18,9 +19,27 @@ public class UdoService {
 
     private final UdoEventManager udoEventManager;
 
-    public UdoService(UdoRepository udoRepository, UdoEventManager udoEventManager) {
+    public UdoService(@Qualifier("udoWrapperRepository") UdoRepository udoRepository, UdoEventManager udoEventManager) {
         this.udoRepository = udoRepository;
         this.udoEventManager = udoEventManager;
+    }
+
+    public void createUdoByUri(String uri, String id) throws UdoServiceException {
+        Udo saved = new Udo();
+        saved.setId(id);
+        saved.setUri(uri);
+        udoEventManager.post(new UdoEvent(EventType.SAVE_BY_URI, saved, uri.getBytes()));
+    }
+
+    public Udo saveUdo(Udo udo, byte[] payload) throws UdoServiceException {
+//        Udo saved;
+        try {
+            udoRepository.saveUdo(udo);
+        } catch (UdoPersistException e) {
+            throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be saved");
+        }
+        udoEventManager.post(new UdoEvent(EventType.SAVE, udo, payload));
+        return udo;
     }
 
     public Udo saveOrUpdateUdo(Udo udo) throws UdoServiceException {
@@ -58,7 +77,6 @@ public class UdoService {
 
     public void deleteUdoById(String id) throws UdoServiceException {
         try {
-//            udoEventManager.unregister(udoRepository.findUdoById(id));
             udoRepository.deleteUdoById(id);
             udoEventManager.post(new UdoEvent(EventType.DELETE, null, id.getBytes()));
         } catch (UdoNotExistException e) {
@@ -71,7 +89,6 @@ public class UdoService {
         UdoType saved = null;
         try {
             saved = udoRepository.saveType(udoType);
-            //   udoEventManager.post(new UdoEvent("save", saved, null));
         } catch (UdoPersistException e) {
             throw new UdoServiceException("canot save/update");
         }

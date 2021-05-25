@@ -6,6 +6,7 @@ import info.nemoworks.udo.model.SyncEvent;
 import info.nemoworks.udo.model.Udo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
 @Component
 public class SyncEventHandler {
     @Autowired
@@ -13,8 +14,8 @@ public class SyncEventHandler {
 
     @Subscribe
     public void syncEvent(SyncEvent syncEvent) {
-        System.out.println("eync event handler");
-        System.out.println(syncEvent);
+//        System.out.println("eync event handler");
+//        System.out.println(syncEvent);
         Udo udo = (Udo) syncEvent.getSource();
         JsonElement udoData = udo.getData();
         Udo udo1 = udoService.getUdoById(udo.getId());

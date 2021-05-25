@@ -24,6 +24,10 @@ public class Udo extends Identifiable {
         this.type = this.inferType();
     }
 
+    public Udo() {
+
+    }
+
     public Udo(UdoType type, JsonElement data) {
         super();
         this.type = type;
@@ -51,8 +55,8 @@ public class Udo extends Identifiable {
                         EnumExtractors.validEnum(java.time.DayOfWeek.class))
                 .build();
         JsonNode jsonNode = mapper.readTree(jsonStr);
-        System.out.println("data: " + jsonStr);
-        System.out.println("node: " + jsonNode.toPrettyString());
+//        System.out.println("data: " + jsonStr);
+//        System.out.println("node: " + jsonNode.toPrettyString());
         JsonNode res = inferrer.inferForSample(jsonNode);
         typeStr = res.toPrettyString();
         JsonObject jsonObject = new Gson().fromJson(typeStr, JsonObject.class);
