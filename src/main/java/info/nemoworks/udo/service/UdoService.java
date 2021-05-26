@@ -1,9 +1,10 @@
 package info.nemoworks.udo.service;
 
-import info.nemoworks.udo.model.EventType;
+import info.nemoworks.udo.model.event.EventType;
 import info.nemoworks.udo.model.Udo;
-import info.nemoworks.udo.model.UdoEvent;
+import info.nemoworks.udo.model.event.UdoEvent;
 import info.nemoworks.udo.model.UdoType;
+import info.nemoworks.udo.service.eventHandler.UdoEventManager;
 import info.nemoworks.udo.storage.UdoNotExistException;
 import info.nemoworks.udo.storage.UdoPersistException;
 import info.nemoworks.udo.storage.UdoRepository;

@@ -1,11 +1,7 @@
-package info.nemoworks.udo.service;
+package info.nemoworks.udo.service.eventHandler;
 
 import com.google.common.eventbus.EventBus;
-import com.google.common.eventbus.Subscribe;
-import com.google.gson.JsonElement;
-import info.nemoworks.udo.model.EventType;
-import info.nemoworks.udo.model.Udo;
-import info.nemoworks.udo.model.UdoEvent;
+import info.nemoworks.udo.model.event.UdoEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

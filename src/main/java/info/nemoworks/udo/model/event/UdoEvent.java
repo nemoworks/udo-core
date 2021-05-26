@@ -1,5 +1,7 @@
-package info.nemoworks.udo.model;
+package info.nemoworks.udo.model.event;
 
+import info.nemoworks.udo.model.Identifiable;
+import info.nemoworks.udo.model.event.EventType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UdoEvent {
-
     private EventType contextId;
     private Identifiable source;
     private byte[] payload;

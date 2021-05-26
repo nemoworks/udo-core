@@ -1,9 +1,11 @@
-package info.nemoworks.udo.service;
+package info.nemoworks.udo.service.eventHandler;
 
 import com.google.common.eventbus.Subscribe;
 import com.google.gson.JsonElement;
-import info.nemoworks.udo.model.SyncEvent;
+import info.nemoworks.udo.model.event.SyncEvent;
 import info.nemoworks.udo.model.Udo;
+import info.nemoworks.udo.service.UdoService;
+import info.nemoworks.udo.service.UdoServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -14,8 +16,6 @@ public class SyncEventHandler {
 
     @Subscribe
     public void syncEvent(SyncEvent syncEvent) {
-//        System.out.println("eync event handler");
-//        System.out.println(syncEvent);
         Udo udo = (Udo) syncEvent.getSource();
         JsonElement udoData = udo.getData();
         Udo udo1 = udoService.getUdoById(udo.getId());

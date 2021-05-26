@@ -1,9 +1,11 @@
-package info.nemoworks.udo.service;
+package info.nemoworks.udo.service.eventHandler;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.eventbus.Subscribe;
-import info.nemoworks.udo.model.SaveByUriEvent;
+import info.nemoworks.udo.model.event.SaveByUriEvent;
 import info.nemoworks.udo.model.Udo;
+import info.nemoworks.udo.service.UdoService;
+import info.nemoworks.udo.service.UdoServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
