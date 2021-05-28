@@ -47,16 +47,12 @@ public class Udo extends Identifiable {
         String typeStr = " ";
         JsonSchemaInferrer inferrer = JsonSchemaInferrer.newBuilder()
                 .setSpecVersion(SpecVersion.DRAFT_06)
-                // Requires commons-validator
-//                .addFormatInferrers(FormatInferrers.email(), FormatInferrers.ip(), FormatInferrers.noOp())
                 .setAdditionalPropertiesPolicy(AdditionalPropertiesPolicies.notAllowed())
                 .setRequiredPolicy(RequiredPolicies.nonNullCommonFields())
                 .addEnumExtractors(EnumExtractors.validEnum(java.time.Month.class),
                         EnumExtractors.validEnum(java.time.DayOfWeek.class))
                 .build();
         JsonNode jsonNode = mapper.readTree(jsonStr);
-//        System.out.println("data: " + jsonStr);
-//        System.out.println("node: " + jsonNode.toPrettyString());
         JsonNode res = inferrer.inferForSample(jsonNode);
         typeStr = res.toPrettyString();
         JsonObject jsonObject = new Gson().fromJson(typeStr, JsonObject.class);

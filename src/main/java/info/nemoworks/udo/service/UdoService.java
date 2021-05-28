@@ -29,12 +29,10 @@ public class UdoService {
         Udo saved = new Udo();
         saved.setId(id);
         saved.setUri(uri);
-//        this.saveOrUpdateUdo(saved);
         udoEventManager.post(new UdoEvent(EventType.SAVE_BY_URI, saved, uri.getBytes()));
     }
 
     public Udo saveUdo(Udo udo, byte[] payload) throws UdoServiceException {
-//        Udo saved;
         try {
             udoRepository.saveUdo(udo);
         } catch (UdoPersistException e) {
@@ -57,7 +55,6 @@ public class UdoService {
         }
         if (created) {
             udoEventManager.post(new UdoEvent(EventType.SAVE, saved, null));
-//            udoEventManager.register(saved);
         } else {
             udoEventManager.post(new UdoEvent(EventType.UPDATE, saved, null));
         }
