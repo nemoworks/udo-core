@@ -69,7 +69,7 @@ public class Udo extends Identifiable {
                 new Gson().fromJson(res.toPrettyString(), JsonObject.class));
 
         JsonObject schema = udoType.getSchema();
-        schema.addProperty("title", String.valueOf(schema.get("name")));
+        schema.addProperty("title", this.getId());
         udoType.setSchema(schema);
         return udoType;
     }
