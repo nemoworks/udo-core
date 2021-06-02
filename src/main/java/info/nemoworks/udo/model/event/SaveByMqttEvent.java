@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class SaveByMqttEvent extends GatewayEvent{
+public class SaveByMqttEvent extends StorageEvent{
 
     public SaveByMqttEvent(EventType contextId, Identifiable source, byte[] payload) {
         super(contextId, source, payload);

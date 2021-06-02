@@ -8,7 +8,6 @@ import lombok.Data;
 @AllArgsConstructor
 public class SaveByUriEvent extends StorageEvent {
 
-
     public SaveByUriEvent(EventType contextId, Identifiable source, byte[] payload) {
         super(contextId, source, payload);
     }

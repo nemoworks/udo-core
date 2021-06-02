@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class GatewayEvent {
+public class GatewayEvent extends UdoEvent{
 
     private EventType contextId;
     private Identifiable source;

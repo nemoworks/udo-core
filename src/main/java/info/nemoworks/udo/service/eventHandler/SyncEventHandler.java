@@ -21,7 +21,7 @@ public class SyncEventHandler {
         Udo udo1 = udoService.getUdoById(udo.getId());
         udo1.setData(udoData);
         try {
-            udoService.saveOrUpdateUdo(udo1);
+            udoService.saveUdo(udo1,syncEvent.getPayload());
         } catch (UdoServiceException e) {
             e.printStackTrace();
         }
