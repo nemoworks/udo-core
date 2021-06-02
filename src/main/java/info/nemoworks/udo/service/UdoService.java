@@ -19,6 +19,7 @@ public class UdoService {
 
     private final UdoEventManager udoEventManager;
 
+
     public UdoService(
         @Qualifier("udoWrapperRepository") UdoRepository udoRepository,
         UdoEventManager udoEventManager) {
@@ -26,14 +27,20 @@ public class UdoService {
         this.udoEventManager = udoEventManager;
     }
 
-    public void createUdoByUri(String uri, String id) {
+    public String createUdoByUri(String uri) throws UdoPersistException {
         Udo saved = new Udo();
-        saved.setId(id);
+//        saved.setId(id);
         saved.setUri(uri);
+        saved = udoRepository.saveUdo(saved);
         udoEventManager.post(new UdoEvent(EventType.SAVE_BY_URI, saved, uri.getBytes()));
+        return saved.getId();
     }
 
-    public Udo saveOrUpdateUdoByUri(Udo udo, byte[] payload) throws UdoServiceException {
+    public Udo findUdoByUri(String uri) throws UdoNotExistException {
+        return udoRepository.findUdoByUri(uri);
+    }
+
+    public Udo saveByUri(Udo udo, byte[] payload) throws UdoServiceException {
         try {
             udoRepository.saveUdo(udo);
         } catch (UdoPersistException e) {

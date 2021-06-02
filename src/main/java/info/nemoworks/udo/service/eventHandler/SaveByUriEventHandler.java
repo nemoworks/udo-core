@@ -22,7 +22,7 @@ public class SaveByUriEventHandler {
         udo.setType(udo.inferType());
         try {
             udoService.saveOrUpdateType(udo.getType());
-            udoService.saveOrUpdateUdoByUri(udo, saveByUriEvent.getPayload());
+            udoService.saveByUri(udo, saveByUriEvent.getPayload());
         } catch (UdoServiceException e) {
             e.printStackTrace();
         }
