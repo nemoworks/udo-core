@@ -1,9 +1,8 @@
 package info.nemoworks.udo.storage;
 
-import java.util.List;
-
 import info.nemoworks.udo.model.Udo;
 import info.nemoworks.udo.model.UdoType;
+import java.util.List;
 
 public interface UdoRepository {
 
@@ -14,6 +13,8 @@ public interface UdoRepository {
 
     Udo findUdoById(String id) throws UdoNotExistException;
 
+    Udo findUdoByUri(String uri) throws UdoNotExistException;
+
     List<Udo> findUdosByType(UdoType udoType);
 
     List<Udo> findUdosByTypeId(String udoTypeId);
@@ -21,6 +22,7 @@ public interface UdoRepository {
     void deleteUdoById(String id) throws UdoNotExistException;
 
     List<Udo> findAllUdos();
+
     // for type
     List<UdoType> findAllTypes();
 
@@ -29,7 +31,6 @@ public interface UdoRepository {
     UdoType saveType(UdoType udoType) throws UdoPersistException;
 
     void deleteTypeById(String id) throws UdoNotExistException;
-
 
 
 }

@@ -8,10 +8,9 @@ import info.nemoworks.udo.service.eventHandler.UdoEventManager;
 import info.nemoworks.udo.storage.UdoNotExistException;
 import info.nemoworks.udo.storage.UdoPersistException;
 import info.nemoworks.udo.storage.UdoRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class UdoService {
@@ -20,39 +19,41 @@ public class UdoService {
 
     private final UdoEventManager udoEventManager;
 
-    public UdoService(@Qualifier("udoWrapperRepository") UdoRepository udoRepository, UdoEventManager udoEventManager) {
+
+    public UdoService(
+        @Qualifier("udoWrapperRepository") UdoRepository udoRepository,
+        UdoEventManager udoEventManager) {
         this.udoRepository = udoRepository;
         this.udoEventManager = udoEventManager;
     }
 
-    public void createUdoByUri(String uri, String id) throws UdoServiceException {
+    public String createUdoByUri(String uri) throws UdoPersistException {
         Udo saved = new Udo();
-        saved.setId(id);
         saved.setUri(uri);
+        saved = udoRepository.saveUdo(saved);
         udoEventManager.post(new GatewayEvent(EventType.SAVE_BY_URI, saved, uri.getBytes()));
+        return saved.getId();
     }
 
-    public Udo saveUdo(Udo udo, byte[] payload) throws UdoServiceException {
-        Udo saved = null;
-        boolean created = false;
-        if (udo.getId() == null) {
-            created = true;
-        }
+    public Udo saveByUri(Udo udo, byte[] payload) throws UdoServiceException {
         try {
-            saved = udoRepository.saveUdo(udo);
+            udoRepository.saveUdo(udo);
         } catch (UdoPersistException e) {
             throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be saved");
         }
-        if (created) {
-            udoEventManager.post(new GatewayEvent(EventType.SAVE, saved, payload));
-        }
-        return saved;
+        udoEventManager.post(new GatewayEvent(EventType.SAVE,udo,payload));
+        return udo;
     }
 
-    public Udo saveOrUpdateUdo(Udo udo) throws UdoServiceException {
+    public Udo saveOrUpdateUdo(Udo udo) throws UdoServiceException, UdoNotExistException {
         Udo saved = null;
         boolean created = false;
-        if (udo.getId() == null) {
+        if (udo.getId() != null) {
+            saved = udoRepository.findUdoById(udo.getId());
+            if (saved == null) {
+                created = true;
+            }
+        } else {
             created = true;
         }
         try {
@@ -91,15 +92,13 @@ public class UdoService {
     }
 
     public UdoType saveOrUpdateType(UdoType udoType) throws UdoServiceException {
-
         UdoType saved = null;
         try {
             saved = udoRepository.saveType(udoType);
+            return saved;
         } catch (UdoPersistException e) {
             throw new UdoServiceException("canot save/update");
         }
-        return saved;
-
     }
 
     public UdoType getTypeById(String id) {
@@ -134,4 +133,14 @@ public class UdoService {
         }
     }
 
+    public Udo syncUdo(Udo udo) throws UdoServiceException {
+        Udo saved = null;
+        try {
+            saved = udoRepository.sync(udo);
+            udoEventManager.post(new GatewayEvent(EventType.SYNC, udo, null));
+        } catch (UdoPersistException e) {
+            throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be sync");
+        }
+        return saved;
+    }
 }
