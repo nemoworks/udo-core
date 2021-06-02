@@ -36,10 +36,6 @@ public class UdoService {
         return saved.getId();
     }
 
-    public Udo findUdoByUri(String uri) throws UdoNotExistException {
-        return udoRepository.findUdoByUri(uri);
-    }
-
     public Udo saveByUri(Udo udo, byte[] payload) throws UdoServiceException {
         try {
             udoRepository.saveUdo(udo);
