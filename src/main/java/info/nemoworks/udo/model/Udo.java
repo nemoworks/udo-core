@@ -61,17 +61,6 @@ public class Udo extends Identifiable {
         JsonNode jsonNode = mapper.readTree(jsonStr);
         JsonNode res = inferrer.inferForSample(jsonNode);
 
-        //        return new UdoType(this.getId() + "-type", new Gson().fromJson(res.toPrettyString(),
-        // JsonObject.class));
-        UdoType udoType =
-            new UdoType(
-                this.getId() + "-type",
-                new Gson().fromJson(res.toPrettyString(), JsonObject.class));
-
-        JsonObject schema = udoType.getSchema();
-        schema.addProperty("title",
-            String.valueOf(((JsonObject) this.getData()).get("name")).replace("\"", "") + "Type");
-        udoType.setSchema(schema);
-        return udoType;
+        return new UdoType(new Gson().fromJson(res.toPrettyString(), JsonObject.class));
     }
 }

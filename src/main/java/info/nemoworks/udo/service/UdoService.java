@@ -41,7 +41,7 @@ public class UdoService {
         } catch (UdoPersistException e) {
             throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be saved");
         }
-        udoEventManager.post(new GatewayEvent(EventType.SAVE,udo,payload));
+        udoEventManager.post(new GatewayEvent(EventType.SAVE, udo, payload));
         return udo;
     }
 
@@ -112,6 +112,10 @@ public class UdoService {
 
     public List<UdoType> getAllTypes() {
         return udoRepository.findAllTypes();
+    }
+
+    public List<Udo> getAllUdos() {
+        return udoRepository.findAllUdos();
     }
 
     public UdoType getTypeForUdo(Udo udo) {

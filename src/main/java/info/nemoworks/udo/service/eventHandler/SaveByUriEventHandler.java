@@ -16,15 +16,12 @@ public class SaveByUriEventHandler {
     UdoService udoService;
 
     @Subscribe
-    public void saveByUriEvent(SaveByUriEvent saveByUriEvent) throws JsonProcessingException {
+    public void saveByUriEvent(SaveByUriEvent saveByUriEvent)
+        throws JsonProcessingException, UdoServiceException {
         System.out.println("In SBUri Subscribe");
         Udo udo = (Udo) saveByUriEvent.getSource();
-        udo.setType(udo.inferType());
-        try {
-            udoService.saveOrUpdateType(udo.getType());
-            udoService.saveByUri(udo, saveByUriEvent.getPayload());
-        } catch (UdoServiceException e) {
-            e.printStackTrace();
-        }
+//        udo.setType(udo.inferType());
+        udo.setType(udoService.saveOrUpdateType(udo.inferType()));
+        udoService.saveByUri(udo, saveByUriEvent.getPayload());
     }
 }

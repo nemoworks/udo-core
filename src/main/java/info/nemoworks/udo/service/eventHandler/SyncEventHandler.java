@@ -17,16 +17,12 @@ public class SyncEventHandler {
     UdoService udoService;
 
     @Subscribe
-    public void syncEvent(SyncEvent syncEvent) {
+    public void syncEvent(SyncEvent syncEvent) throws UdoServiceException, UdoNotExistException {
         Udo udo = (Udo) syncEvent.getSource();
         JsonElement udoData = udo.getData();
         Udo udo1 = udoService.getUdoById(udo.getId());
         udo1.setData(udoData);
-        try {
-            udoService.saveOrUpdateUdo(udo1);
-        } catch (UdoServiceException | UdoNotExistException e) {
-            e.printStackTrace();
-        }
+        udoService.saveOrUpdateUdo(udo1);
     }
 
 
