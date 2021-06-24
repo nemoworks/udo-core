@@ -62,9 +62,20 @@ public class UdoService {
             throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be saved");
         }
         if (created) {
-            udoEventManager.post(new GatewayEvent(EventType.SAVE, saved, null));
+            // TODO：uri
+            if (udo.getUri() != null) {
+                udoEventManager
+                    .post(new GatewayEvent(EventType.SAVE, saved, udo.getUri().getBytes()));
+            } else {
+                udoEventManager.post(new GatewayEvent(EventType.SAVE, saved, null));
+            }
         } else {
-            udoEventManager.post(new GatewayEvent(EventType.UPDATE, saved, null));
+            if (udo.getUri() != null) {
+                udoEventManager
+                    .post(new GatewayEvent(EventType.UPDATE, saved, udo.getUri().getBytes()));
+            } else {
+                udoEventManager.post(new GatewayEvent(EventType.UPDATE, saved, null));
+            }
         }
         return saved;
     }
@@ -130,7 +141,6 @@ public class UdoService {
     public void deleteTypeById(String id) throws UdoServiceException {
         try {
             udoRepository.deleteTypeById(id);
-            udoEventManager.post(new GatewayEvent(EventType.DELETE, null, id.getBytes()));
 
         } catch (UdoNotExistException e) {
             throw new UdoServiceException("not exist");
