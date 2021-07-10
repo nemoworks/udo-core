@@ -1,7 +1,10 @@
 package info.nemoworks.udo.service;
 
+import info.nemoworks.udo.model.ContextInfo;
 import info.nemoworks.udo.model.Udo;
 import info.nemoworks.udo.model.UdoType;
+import info.nemoworks.udo.model.Uri;
+import info.nemoworks.udo.model.UriType;
 import info.nemoworks.udo.model.event.EventType;
 import info.nemoworks.udo.model.event.GatewayEvent;
 import info.nemoworks.udo.service.eventHandler.UdoEventManager;
@@ -27,9 +30,24 @@ public class UdoService {
         this.udoEventManager = udoEventManager;
     }
 
-    public String createUdoByUri(String uri) throws UdoPersistException {
+    public String createUdoByUri(String uri, String location, String uriType)
+        throws UdoPersistException {
         Udo saved = new Udo();
-        saved.setUri(uri);
+        switch (uriType) {
+            case "HTTP":
+                saved.setUri(new Uri(uri, UriType.HTTP));
+                break;
+            case "MQTT":
+                saved.setUri(new Uri(uri, UriType.MQTT));
+                break;
+            default:
+                break;
+        }
+//        saved.setLocation(location);
+        ContextInfo contextInfo = saved.getContextInfo();
+        contextInfo.addContext("location", location);
+//        System.out.println("location: " + location);
+        saved.setContextInfo(contextInfo);
         saved = udoRepository.saveUdo(saved);
         udoEventManager.post(new GatewayEvent(EventType.SAVE_BY_URI, saved, uri.getBytes()));
         return saved.getId();
@@ -62,17 +80,19 @@ public class UdoService {
             throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be saved");
         }
         if (created) {
-            // TODO：uri
+            System.out.println("Updating Udo: " + saved.getId());
             if (udo.getUri() != null) {
                 udoEventManager
-                    .post(new GatewayEvent(EventType.SAVE, saved, udo.getUri().getBytes()));
+                    .post(
+                        new GatewayEvent(EventType.SAVE, saved, udo.getUri().getUri().getBytes()));
             } else {
                 udoEventManager.post(new GatewayEvent(EventType.SAVE, saved, null));
             }
         } else {
             if (udo.getUri() != null) {
                 udoEventManager
-                    .post(new GatewayEvent(EventType.UPDATE, saved, udo.getUri().getBytes()));
+                    .post(new GatewayEvent(EventType.UPDATE, saved,
+                        udo.getUri().getUri().getBytes()));
             } else {
                 udoEventManager.post(new GatewayEvent(EventType.UPDATE, saved, null));
             }

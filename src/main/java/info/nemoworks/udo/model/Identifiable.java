@@ -12,7 +12,9 @@ public abstract class Identifiable {
     public String createdBy;
     public long modifiedOn;
     public String modifiedBy;
-    public String uri;
+    //    public String uri;
+    public Uri uri;
+    public String location;
 
     public abstract JsonObject toJsonObject();
 
