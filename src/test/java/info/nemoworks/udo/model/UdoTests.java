@@ -1,15 +1,14 @@
 package info.nemoworks.udo.model;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import org.json.JSONException;
-import org.junit.jupiter.api.Test;
-
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.json.JSONException;
+import org.junit.jupiter.api.Test;
 
 public class UdoTests {
 
@@ -17,7 +16,7 @@ public class UdoTests {
     public void testUdoSchema() {
 
         String jsonString = "{'id': 1001, " + "'firstName': 'Lokesh'," + "'lastName': 'Gupta',"
-                + "'email': 'howtodoinjava@gmail.com'}";
+            + "'email': 'howtodoinjava@gmail.com'}";
 
         JsonObject data = new Gson().fromJson(jsonString, JsonObject.class);
 
@@ -46,4 +45,12 @@ public class UdoTests {
         return new String(Files.readAllBytes(Paths.get(path)));
     }
 
+
+    @Test
+    public void testGson() {
+        String jstr = "{url: \"http://123\"}";
+        JsonObject obj = new Gson().fromJson(jstr, JsonObject.class);
+        System.out.println("Jstr: " + jstr);
+        System.out.println(obj.getAsJsonObject().toString());
+    }
 }

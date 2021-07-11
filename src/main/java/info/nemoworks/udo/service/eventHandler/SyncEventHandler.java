@@ -21,7 +21,10 @@ public class SyncEventHandler {
         Udo udo = (Udo) syncEvent.getSource();
         JsonElement udoData = udo.getData();
         Udo udo1 = udoService.getUdoById(udo.getId());
-        if(!udo1.getData().equals(udo.getData())){
+        if (!udo1.getData().equals(udo.getData())) {
+            System.out.println("detect udo changing...");
+            System.out.println("udo origin: " + udo1.getData().getAsJsonObject().toString());
+            System.out.println("udo to up: " + udo.getData().getAsJsonObject().toString());
             udo1.setData(udoData);
             udoService.saveOrUpdateUdo(udo1);
         }

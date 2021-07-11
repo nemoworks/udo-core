@@ -60,7 +60,8 @@ public class Udo extends Identifiable {
 
         JsonNode jsonNode = mapper.readTree(jsonStr);
         JsonNode res = inferrer.inferForSample(jsonNode);
-
-        return new UdoType(new Gson().fromJson(res.toPrettyString(), JsonObject.class));
+        String resStr = res.toPrettyString();
+        resStr = resStr.replace("boolean", "bool");
+        return new UdoType(new Gson().fromJson(resStr, JsonObject.class));
     }
 }

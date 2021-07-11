@@ -1,5 +1,6 @@
 package info.nemoworks.udo.service;
 
+import com.google.gson.JsonObject;
 import info.nemoworks.udo.model.ContextInfo;
 import info.nemoworks.udo.model.Udo;
 import info.nemoworks.udo.model.UdoType;
@@ -30,7 +31,8 @@ public class UdoService {
         this.udoEventManager = udoEventManager;
     }
 
-    public String createUdoByUri(String uri, String location, String uriType)
+    public String createUdoByUri(String uri, float longitude, float latitude, String uriType,
+        String avatarUrl)
         throws UdoPersistException {
         Udo saved = new Udo();
         switch (uriType) {
@@ -45,9 +47,17 @@ public class UdoService {
         }
 //        saved.setLocation(location);
         ContextInfo contextInfo = saved.getContextInfo();
+        JsonObject location = new JsonObject();
+        location.addProperty("longitude", longitude);
+        location.addProperty("latitude", latitude);
         contextInfo.addContext("location", location);
-//        System.out.println("location: " + location);
+        contextInfo.addContext("avatarUrl", avatarUrl);
+        System.out.println("location: " + location);
         saved.setContextInfo(contextInfo);
+//        JsonObject data = new JsonObject();
+//        data.add("location", location);
+//        data.addProperty("avatarUrl", avatarUrl);
+//        saved.setData(data);
         saved = udoRepository.saveUdo(saved);
         udoEventManager.post(new GatewayEvent(EventType.SAVE_BY_URI, saved, uri.getBytes()));
         return saved.getId();
@@ -80,7 +90,7 @@ public class UdoService {
             throw new UdoServiceException("Udo (" + udo.getId() + ") cannot be saved");
         }
         if (created) {
-            System.out.println("Updating Udo: " + saved.getId());
+//            System.out.println("Updating Udo: " + saved.getId());
             if (udo.getUri() != null) {
                 udoEventManager
                     .post(
