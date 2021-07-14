@@ -53,4 +53,12 @@ public class UdoTests {
         System.out.println("Jstr: " + jstr);
         System.out.println(obj.getAsJsonObject().toString());
     }
+
+    @Test
+    public void testDistanceCalculate() {
+        System.out.println((float) 109.371);
+        System.out.println(DistanceUtil
+            .getDistance((float) 109.371319, (float) 22.155406, (float) 108.009758,
+                (float) 21.679011));
+    }
 }

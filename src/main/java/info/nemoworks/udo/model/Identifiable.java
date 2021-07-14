@@ -20,6 +20,11 @@ public abstract class Identifiable {
 
     private ContextInfo contextInfo;
 
+    // 当前时钟
+    private String clock;
+    // 极限访问距离
+    private float limitDis;
+
     public Identifiable() {
         this.createdBy = "nemoworks";
         this.contextInfo = new ContextInfo();

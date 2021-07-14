@@ -27,6 +27,7 @@ public class SaveByUriEventHandler {
         data.add("location", (JsonObject) udo.getContextInfo().getContext("location"));
         data.addProperty("avatarUrl", udo.getContextInfo().getContext("avatarUrl").toString());
 //        data.add("data", subData);
+//        data.addProperty("uri", new String(saveByUriEvent.getPayload()));
         udo.setData(data);
         udo.setType(udoService.saveOrUpdateType(udo.inferType()));
         udoService.saveByUri(udo, saveByUriEvent.getPayload());
