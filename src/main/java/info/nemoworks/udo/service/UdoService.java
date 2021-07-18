@@ -95,17 +95,19 @@ public class UdoService {
                 udoEventManager
                     .post(
                         new GatewayEvent(EventType.SAVE, saved, udo.getUri().getUri().getBytes()));
-            } else {
-                udoEventManager.post(new GatewayEvent(EventType.SAVE, saved, null));
             }
+//            else {
+//                udoEventManager.post(new GatewayEvent(EventType.SAVE, saved, null));
+//            }
         } else {
             if (udo.getUri() != null) {
                 udoEventManager
                     .post(new GatewayEvent(EventType.UPDATE, saved,
                         udo.getUri().getUri().getBytes()));
-            } else {
-                udoEventManager.post(new GatewayEvent(EventType.UPDATE, saved, null));
             }
+//            else {
+//                udoEventManager.post(new GatewayEvent(EventType.UPDATE, saved, null));
+//            }
         }
         return saved;
     }

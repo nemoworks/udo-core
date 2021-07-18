@@ -13,7 +13,7 @@ public interface UdoRepository {
 
     Udo findUdoById(String id) throws UdoNotExistException;
 
-    Udo findUdoByUri(String uri) throws UdoNotExistException;
+//    Udo findUdoByUri(String uri) throws UdoNotExistException;
 
     List<Udo> findUdosByType(UdoType udoType);
 
