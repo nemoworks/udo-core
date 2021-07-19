@@ -91,7 +91,7 @@ public class UdoService {
         }
         if (created) {
 //            System.out.println("Updating Udo: " + saved.getId());
-            if (udo.getUri() != null) {
+            if (udo.getUri() != null && udo.getUri().getUriType() != UriType.NOTEXIST) {
                 udoEventManager
                     .post(
                         new GatewayEvent(EventType.SAVE, saved, udo.getUri().getUri().getBytes()));
@@ -100,7 +100,7 @@ public class UdoService {
 //                udoEventManager.post(new GatewayEvent(EventType.SAVE, saved, null));
 //            }
         } else {
-            if (udo.getUri() != null) {
+            if (udo.getUri() != null && udo.getUri().getUriType() != UriType.NOTEXIST) {
                 udoEventManager
                     .post(new GatewayEvent(EventType.UPDATE, saved,
                         udo.getUri().getUri().getBytes()));
