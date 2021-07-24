@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.google.common.eventbus.Subscribe;
 import com.google.gson.JsonObject;
 import info.nemoworks.udo.model.Udo;
+import info.nemoworks.udo.model.UdoType;
 import info.nemoworks.udo.model.event.SaveByUriEvent;
 import info.nemoworks.udo.service.UdoService;
 import info.nemoworks.udo.service.UdoServiceException;
@@ -29,7 +30,12 @@ public class SaveByUriEventHandler {
 //        data.add("data", subData);
 //        data.addProperty("uri", new String(saveByUriEvent.getPayload()));
         udo.setData(data);
-        udo.setType(udoService.saveOrUpdateType(udo.inferType()));
+        UdoType udoType = udo.inferType();
+        JsonObject schema = udoType.getSchema();
+        schema.addProperty("title", udo.getContextInfo().getContext("name").toString());
+        udoType.setSchema(schema);
+        udoService.saveOrUpdateType(udoType);
+        udo.setType(udoType);
         udoService.saveByUri(udo, saveByUriEvent.getPayload());
     }
 }

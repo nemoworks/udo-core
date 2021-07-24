@@ -32,7 +32,7 @@ public class UdoService {
     }
 
     public String createUdoByUri(String uri, float longitude, float latitude, String uriType,
-        String avatarUrl)
+        String avatarUrl, String name)
         throws UdoPersistException {
         Udo saved = new Udo();
         switch (uriType) {
@@ -52,6 +52,7 @@ public class UdoService {
         location.addProperty("latitude", latitude);
         contextInfo.addContext("location", location);
         contextInfo.addContext("avatarUrl", avatarUrl);
+        contextInfo.addContext("name", name);
         System.out.println("location: " + location);
         saved.setContextInfo(contextInfo);
 //        JsonObject data = new JsonObject();

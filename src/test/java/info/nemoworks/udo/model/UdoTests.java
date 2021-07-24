@@ -32,7 +32,7 @@ public class UdoTests {
 
     @Test
     public void testInfer() throws IOException, JSONException {
-        String json = this.loadFromFile("src/test/resources/bus.json");
+        String json = this.loadFromFile("src/test/resources/hass.json");
         JsonObject obj = new Gson().fromJson(json, JsonObject.class);
         Udo udo = new Udo(obj);
         System.out.println("result 1: " + udo.getType().getSchema().toString());
