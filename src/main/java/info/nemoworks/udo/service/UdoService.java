@@ -43,6 +43,7 @@ public class UdoService {
                 saved.setUri(new Uri(uri, UriType.MQTT));
                 break;
             default:
+                saved.setUri(new Uri(uri, UriType.NOTEXIST));
                 break;
         }
 //        saved.setLocation(location);

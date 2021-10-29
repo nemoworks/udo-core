@@ -22,7 +22,7 @@ public class SyncEventHandler {
         Udo udo = (Udo) syncEvent.getSource();
         JsonElement udoData = udo.getData();
         Udo udo1 = udoService.getUdoById(udo.getId());
-        if (udo1.getData() == null) {
+        if (udo1.getData() == null || udo.getData() == null) {
             return;
         }
 //        if (new String(syncEvent.getPayload()).equals("reject")) {
