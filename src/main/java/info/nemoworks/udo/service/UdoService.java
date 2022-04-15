@@ -31,6 +31,17 @@ public class UdoService {
         this.udoEventManager = udoEventManager;
     }
 
+    /**
+     * 根据uri创建udo实例
+     * @param uri
+     * @param longitude
+     * @param latitude
+     * @param uriType
+     * @param avatarUrl
+     * @param name
+     * @return
+     * @throws UdoPersistException
+     */
     public String createUdoByUri(String uri, float longitude, float latitude, String uriType,
         String avatarUrl, String name)
         throws UdoPersistException {

@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * 数据存储事件
+ */
 public class StorageEvent extends UdoEvent{
     private EventType contextId;
     private Identifiable source;

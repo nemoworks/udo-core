@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+/**
+ * 向mqtt server发送的事件
+ */
 public class PublishByMqttEvent extends UdoEvent {
     private EventType contextId;
     private Identifiable source;

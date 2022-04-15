@@ -9,6 +9,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * udo 事件
+ */
 public class UdoEvent {
     private EventType contextId;
     private Identifiable source;

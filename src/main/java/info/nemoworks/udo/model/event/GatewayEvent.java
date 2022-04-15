@@ -8,6 +8,9 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+/**
+ * 消息网关接收事件
+ */
 public class GatewayEvent extends UdoEvent{
 
     private EventType contextId;
